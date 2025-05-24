@@ -17,7 +17,9 @@ This project sets up a private [GoQuorum](https://consensys.net/quorum/) blockch
 ## 📁 Directory Structure
 
 ├── genesis.json # Custom genesis block configuration for QBFT
+
 ├── static-nodes.json # List of enode addresses for peer discovery
+
 └── README.md
 
 ## ⚙️ Genesis Configuration
