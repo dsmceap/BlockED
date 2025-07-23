@@ -85,8 +85,8 @@ Decentralized Certificate Verification
   * Certificate Owner Public Data: Platform User ID / Lastname / Name 
   * Non-Public Data: Project Name (BLOCKED) / Application Key
 *	DIDs Schema:
-  *	Certificate DID: “did:blocked/{ Application Key }/{ Issue Authority }/{ course moodle id }/{ certificate ID No }”
-  * Certificate Owner DID: “did:blocked/{ Application Key }/{ Platform User ID }/{ Lastname }/{ Name }”
+   * Certificate DID: “did:blocked/{ Application Key }/{ Issue Authority }/{ course moodle id }/{ certificate ID No }”
+   * Certificate Owner DID: “did:blocked/{ Application Key }/{ Platform User ID }/{ Lastname }/{ Name }”
 * Unique Verifiable Certificate Hash:
    * Double Hashing [ SHA-256(SHA-256(data)) ]
    *	Data = CertificateId/CertificateOwnerDID
