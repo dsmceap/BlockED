@@ -1,5 +1,96 @@
 # BlockED
 This repo hosts the open source code and documentation of the BlockED project and the Blockchain plugin.
+This project focuses on the implementation of a Blockchain plugin used for the verification of certificates/badges produced by a Learning Management System (LMS), in our case Moodle platform. The System architecture below consists of 2 main elements: The Moodle platform in the left side that can interact with third party microcredential tools (e.g MICOO) and the Blockchain plugin in the rigth side that consists of the Blockchain network, the Oracle mechanism and the verifier app. In this Readme file we throughly present its element and provide open-source code for any possible adopters.
+
+ 
+Image explanation
+Moodle Platform: is the LMS platform on which students complete courses.
+1.	Structure:
+o	Moodle Course: the course that the student must complete.
+o	Course Completion: when the student completes the course, the process is activated.
+o	Certificate: Moodle generates certificates with details such as name, email, and certificate number.
+o	Moodle Database: all data is stored by the Moodle platform in its own database.
+2.	Trigger:
+o	Triggers the transfer of the certificate data (name, email, certificate number, etc.) to the Blockchain Plugin Server
+	The trigger will be a simple http call to the rest api of the Blockchain Plugin server
+3.	Blockchain Plugin Server:
+o	It is a dedicated server which acts as an oracle, that connects the platform Moodle to the blockchain.
+o	Functions:
+	DID Check & Register: creates or checks Decentralized Identifiers
+	SoulBound Token Creation: creates non-transferable tokens (SoulBound Tokens) to represent the certificate in the blockchain world.
+	Verifiable Certificate Hash: re-constructures unique DID-based credential hashes that are verifiable solely through the blockchain, using specific encryption.
+2.	Blockchain Network:
+o	The data is stored on a decentralized blockchain network.
+o	Includes:
+	Smart Contracts: smart contracts to ensure data integrity and verification.
+	Nodes: data is shared across several blockchain nodes (Node #1, Node #2, Node #3) for security and decentralization.
+3.	Verifier Application:
+o	It is an application (either mobile or web-based) used by third parties (e.g., employers or organizations) to verify certificates.
+o	Role:
+	The application retrieves data from the blockchain over the network and confirms the validity of the certificate directly, without the intervention of third-party applications or even the Blockchain Plugin Server.
+
+Implementation Description
+The implementation depicted in the image represents an integrated system that connects the Moodle platform with blockchain technology to facilitate the creation, storage, and verification of certificates.
+
+The process begins on the Moodle platform, where students register and complete courses. Once a student successfully completes a course, the system updates their status to "Course Completed." Moodle then generates a certificate containing essential details such as the student’s name, email, and a unique certificate number. 
+At this stage, a trigger is activated to initiate the registration of the certificate on the blockchain.
+
+The trigger transmits the certificate data over to the Blockchain Plugin Server via a REST API. The server creates/generates a non-transferable token, known as a SoulBound Token (SBT), which represents the certificate on the blockchain. This SBT contains details such as the student's DID, certificate data, and issuance date. Additionally, the system securely stores the unique and verifiable certificate hash, which is constructed based on a preconfigured DID schemas of both public and non-public data. The public data will be related to both the certificate as well as the certificate owner. Afterwards, after the construction of the DIDs, a combination of them will be used to construct the unique and verifiable hash of the specific certificate.
+
+Once the Blockchain Plugin Server processes the data, it registers the information on the blockchain. Smart contracts facilitate data storage and processing, ensuring automation and tamper-proof security.
+
+Verification of certificates is conducted through a dedicated application. Third parties, such as employers or educational institutions, can use this application to validate a certificate. By entering the required details, the app retrieves data from the blockchain and confirms the certificate's authenticity. The verification output includes all necessary information to validate the certificate.
+
+This implementation utilizes REST APIs to integrate Moodle with the Blockchain Plugin Server, while the blockchain infrastructure is built on an EVM-based network. 
+Implementation Point #1: Configuring Moodle
+REST API call:
+•	Develop a function that calls the Blockchain Plugin Server API and sends the necessary information, such as certificate or user data.
+Response:
+•	Reading and decoding the response from the REST API (usually in JSON format)
+•	Export the blockchain token or other relevant information returned by the API.
+Enrichment of the Certificate:
+•	Embedding the blockchain token in the content of the certificate, either as text or as a graphic (e.g., QR code).
+•	Ensure that the new information does not alter the existing structure or function of the certificate.
+Implementation Point #2: Blockchain Plugin Server
+Communication between Application, Verifier, Moodle Plugin and Blockchain network:
+•	Create a communication channel between the Moodle and the blockchain server. 
+•	Management of requests sent from Moodle and their processing by the server.
+Managing Secure Identification and Verification of Users and Certificates:
+•	Ensure that users are authenticated in a secure way by creating and verifying Decentralized Identifiers (DIDs). 
+•	Create or check an existing DID for each student.
+Creation of SBT:
+•	Create and register SoulBound Token (SBT) for each certificate representing the student on the blockchain. 
+•	Link SBTs to certificate data (e.g., name, email, certificate number).
+APIs:
+•	Issue API: Moodle plugin sends certificate data upon course completion. 
+•	Verification API: Used by the mobile app to confirm certificate authenticity.
+•	Verifiable Certificate Hash API: Get a reconstructed verifiable hash of the certificate after its issuance (not a blockchain query).
+Implementation Point #3: Verifier Implementation
+Mobile User Interface:
+•	Development of an application that will allow third-party users (employers, organizations) to verify certificates via the blockchain.
+•	User interface (UI) for easy certificate data entry and verification. 
+
+
+Decentralized Certificate Verification
+•	Decentralized and Verifiable Hashing Algorithm: 
+•	Generates a tamper-proof hash from public certificate data by constructing unique DIDs based on public and non-public data.
+•	The hash is stored on the blockchain and included in a QR code on the certificate.
+•	Certificates Decentralized Verification Schema: 
+o	Certificate Public data: Issue Authority / course moodle id / certificate ID No
+o	Certificate Owner Public Data: Platform User ID / Lastname / Name 
+o	Non-Public Data: Project Name (BLOCKED) / Application Key
+•	DIDs Schema:
+o	Certificate DID: “did:blocked/{ Application Key }/{ Issue Authority }/{ course moodle id }/{ certificate ID No }”
+o	Certificate Owner DID: “did:blocked/{ Application Key }/{ Platform User ID }/{ Lastname }/{ Name }”
+•	Unique Verifiable Certificate Hash:
+o	Double Hashing [ SHA-256(SHA-256(data)) ]
+o	Data = CertificateId/CertificateOwnerDID
+•	Verification Process: 
+•	The mobile app reconstructs the DID hash using the same algorithm from the provided input of the public data and combine them with non-public data.
+•	The user can verify a certificate using public data without exposing sensitive details.
+•	QR code scanning enables instant verification.
+
+
 
 Deploy a private Blockchain network
 # Private Quorum Network with QBFT Consensus
