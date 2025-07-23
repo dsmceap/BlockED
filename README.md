@@ -20,19 +20,19 @@ Moodle Platform: is the LMS platform on which students complete courses.
 
 *	It is a dedicated server which acts as an oracle, that connects the platform Moodle to the blockchain.
 *	Functions:
-  *DID Check & Register: creates or checks Decentralized Identifiers
-  *SoulBound Token Creation: creates non-transferable tokens (SoulBound Tokens) to represent the certificate in the blockchain world.
-  *Verifiable Certificate Hash: re-constructures unique DID-based credential hashes that are verifiable solely through the blockchain, using specific encryption.
+  * DID Check & Register: creates or checks Decentralized Identifiers
+  * SoulBound Token Creation: creates non-transferable tokens (SoulBound Tokens) to represent the certificate in the blockchain world.
+  * Verifiable Certificate Hash: re-constructures unique DID-based credential hashes that are verifiable solely through the blockchain, using specific encryption.
  	
 2.	Blockchain Network:
 *	The data is stored on a decentralized blockchain network.
 *	Includes:
-  *Smart Contracts: smart contracts to ensure data integrity and verification.
-  *Nodes: data is shared across several blockchain nodes (Node #1, Node #2, Node #3) for security and decentralization.
+  * Smart Contracts: smart contracts to ensure data integrity and verification.
+  * Nodes: data is shared across several blockchain nodes (Node #1, Node #2, Node #3) for security and decentralization.
 3.	Verifier Application:
 *	It is an application (either mobile or web-based) used by third parties (e.g., employers or organizations) to verify certificates.
 *	Role:
-  *The application retrieves data from the blockchain over the network and confirms the validity of the certificate directly, without the intervention of third-party applications or even the Blockchain Plugin Server.
+  * The application retrieves data from the blockchain over the network and confirms the validity of the certificate directly, without the intervention of third-party applications or even the Blockchain Plugin Server.
 
 Implementation Description
 The implementation depicted in the image represents an integrated system that connects the Moodle platform with blockchain technology to facilitate the creation, storage, and verification of certificates.
@@ -49,51 +49,51 @@ Verification of certificates is conducted through a dedicated application. Third
 This implementation utilizes REST APIs to integrate Moodle with the Blockchain Plugin Server, while the blockchain infrastructure is built on an EVM-based network. 
 Implementation Point #1: Configuring Moodle
 REST API call:
-•	Develop a function that calls the Blockchain Plugin Server API and sends the necessary information, such as certificate or user data.
+*	Develop a function that calls the Blockchain Plugin Server API and sends the necessary information, such as certificate or user data.
 Response:
-•	Reading and decoding the response from the REST API (usually in JSON format)
-•	Export the blockchain token or other relevant information returned by the API.
+*	Reading and decoding the response from the REST API (usually in JSON format)
+*	Export the blockchain token or other relevant information returned by the API.
 Enrichment of the Certificate:
-•	Embedding the blockchain token in the content of the certificate, either as text or as a graphic (e.g., QR code).
-•	Ensure that the new information does not alter the existing structure or function of the certificate.
+*	Embedding the blockchain token in the content of the certificate, either as text or as a graphic (e.g., QR code).
+*	Ensure that the new information does not alter the existing structure or function of the certificate.
 Implementation Point #2: Blockchain Plugin Server
 Communication between Application, Verifier, Moodle Plugin and Blockchain network:
-•	Create a communication channel between the Moodle and the blockchain server. 
-•	Management of requests sent from Moodle and their processing by the server.
+*	Create a communication channel between the Moodle and the blockchain server. 
+*	Management of requests sent from Moodle and their processing by the server.
 Managing Secure Identification and Verification of Users and Certificates:
-•	Ensure that users are authenticated in a secure way by creating and verifying Decentralized Identifiers (DIDs). 
-•	Create or check an existing DID for each student.
+*	Ensure that users are authenticated in a secure way by creating and verifying Decentralized Identifiers (DIDs). 
+*	Create or check an existing DID for each student.
 Creation of SBT:
-•	Create and register SoulBound Token (SBT) for each certificate representing the student on the blockchain. 
-•	Link SBTs to certificate data (e.g., name, email, certificate number).
+*	Create and register SoulBound Token (SBT) for each certificate representing the student on the blockchain. 
+*	Link SBTs to certificate data (e.g., name, email, certificate number).
 APIs:
-•	Issue API: Moodle plugin sends certificate data upon course completion. 
-•	Verification API: Used by the mobile app to confirm certificate authenticity.
-•	Verifiable Certificate Hash API: Get a reconstructed verifiable hash of the certificate after its issuance (not a blockchain query).
+*	Issue API: Moodle plugin sends certificate data upon course completion. 
+*	Verification API: Used by the mobile app to confirm certificate authenticity.
+*	Verifiable Certificate Hash API: Get a reconstructed verifiable hash of the certificate after its issuance (not a blockchain query).
 Implementation Point #3: Verifier Implementation
 Mobile User Interface:
-•	Development of an application that will allow third-party users (employers, organizations) to verify certificates via the blockchain.
-•	User interface (UI) for easy certificate data entry and verification. 
+*	Development of an application that will allow third-party users (employers, organizations) to verify certificates via the blockchain.
+*	User interface (UI) for easy certificate data entry and verification. 
 
 
 Decentralized Certificate Verification
-•	Decentralized and Verifiable Hashing Algorithm: 
-•	Generates a tamper-proof hash from public certificate data by constructing unique DIDs based on public and non-public data.
-•	The hash is stored on the blockchain and included in a QR code on the certificate.
-•	Certificates Decentralized Verification Schema: 
-o	Certificate Public data: Issue Authority / course moodle id / certificate ID No
-o	Certificate Owner Public Data: Platform User ID / Lastname / Name 
-o	Non-Public Data: Project Name (BLOCKED) / Application Key
-•	DIDs Schema:
-o	Certificate DID: “did:blocked/{ Application Key }/{ Issue Authority }/{ course moodle id }/{ certificate ID No }”
-o	Certificate Owner DID: “did:blocked/{ Application Key }/{ Platform User ID }/{ Lastname }/{ Name }”
-•	Unique Verifiable Certificate Hash:
-o	Double Hashing [ SHA-256(SHA-256(data)) ]
-o	Data = CertificateId/CertificateOwnerDID
-•	Verification Process: 
-•	The mobile app reconstructs the DID hash using the same algorithm from the provided input of the public data and combine them with non-public data.
-•	The user can verify a certificate using public data without exposing sensitive details.
-•	QR code scanning enables instant verification.
+*	Decentralized and Verifiable Hashing Algorithm: 
+*	Generates a tamper-proof hash from public certificate data by constructing unique DIDs based on public and non-public data.
+*	The hash is stored on the blockchain and included in a QR code on the certificate.
+*	Certificates Decentralized Verification Schema: 
+  *	Certificate Public data: Issue Authority / course moodle id / certificate ID No
+  * Certificate Owner Public Data: Platform User ID / Lastname / Name 
+  * Non-Public Data: Project Name (BLOCKED) / Application Key
+*	DIDs Schema:
+  *	Certificate DID: “did:blocked/{ Application Key }/{ Issue Authority }/{ course moodle id }/{ certificate ID No }”
+  * Certificate Owner DID: “did:blocked/{ Application Key }/{ Platform User ID }/{ Lastname }/{ Name }”
+* Unique Verifiable Certificate Hash:
+   * Double Hashing [ SHA-256(SHA-256(data)) ]
+   *	Data = CertificateId/CertificateOwnerDID
+*	Verification Process: 
+*	The mobile app reconstructs the DID hash using the same algorithm from the provided input of the public data and combine them with non-public data.
+*	The user can verify a certificate using public data without exposing sensitive details.
+*	QR code scanning enables instant verification.
 
 
 
