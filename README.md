@@ -14,7 +14,7 @@ Moodle Platform: is the LMS platform on which students complete courses.
 *	Moodle Database: all data is stored by the Moodle platform in its own database.
 2.	Trigger:
  	
-*Triggers the transfer of the certificate data (name, email, certificate number, etc.) to the Blockchain Plugin Server
+  *Triggers the transfer of the certificate data (name, email, certificate number, etc.) to the Blockchain Plugin Server
   *The trigger will be a simple http call to the rest api of the Blockchain Plugin server
 3.	Blockchain Plugin Server:
 
