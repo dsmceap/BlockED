@@ -7,19 +7,23 @@ This project focuses on the implementation of a Blockchain plugin used for the v
 System explanation
 Moodle Platform: is the LMS platform on which students complete courses.
 1.	Structure:
+   
 * Moodle Course: the course that the student must complete.
 *	Course Completion: when the student completes the course, the process is activated.
 *	Certificate/badge: Moodle generates certificates with details such as name, email, and certificate number.
 *	Moodle Database: all data is stored by the Moodle platform in its own database.
 2.	Trigger:
+ 	
 *Triggers the transfer of the certificate data (name, email, certificate number, etc.) to the Blockchain Plugin Server
   *The trigger will be a simple http call to the rest api of the Blockchain Plugin server
 3.	Blockchain Plugin Server:
+
 *	It is a dedicated server which acts as an oracle, that connects the platform Moodle to the blockchain.
 *	Functions:
   *DID Check & Register: creates or checks Decentralized Identifiers
   *SoulBound Token Creation: creates non-transferable tokens (SoulBound Tokens) to represent the certificate in the blockchain world.
   *Verifiable Certificate Hash: re-constructures unique DID-based credential hashes that are verifiable solely through the blockchain, using specific encryption.
+ 	
 2.	Blockchain Network:
 *	The data is stored on a decentralized blockchain network.
 *	Includes:
