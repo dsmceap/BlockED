@@ -102,7 +102,7 @@ This system enables:
 
 ### 🧮 Hashing Algorithm
 
-```plaintext
+
 Hash = SHA-256(SHA-256(CertificateID + CertificateOwnerDID))
 
 Deploy a private Blockchain network
