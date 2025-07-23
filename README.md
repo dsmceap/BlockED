@@ -1,6 +1,6 @@
 # BlockED
 This repo hosts the open source code and documentation of the BlockED project and the Blockchain plugin.
-This project focuses on the implementation of a Blockchain plugin used for the verification of certificates/badges produced by a Learning Management System (LMS), in our case Moodle platform. The System architecture below consists of 2 main elements: The Moodle platform in the left side that can interact with third party microcredential tools (e.g MICOO) and the Blockchain plugin in the rigth side that consists of the Blockchain network, the Oracle mechanism and the verifier app. In this Readme file we throughly present its element and provide open-source code for any possible adopters.
+This project focuses on the implementation of a Blockchain plugin used for the verification of certificates/badges produced by a Learning Management System (LMS), in our case Moodle platform. The System architecture below consists of 2 main elements: The Moodle platform in the left side that can interact with third party microcredential tools (e.g MICOO) and the Blockchain plugin in the rigth side that consists of the Blockchain network, the Oracle mechanism and the Verifier app. In this Readme file we throughly present each element and provide open-source code for any possible adopters.
 
  <img width="1280" height="720" alt="system-architecture" src="https://github.com/user-attachments/assets/ea8499f6-90d6-41b6-b0bc-448afa7f83d7" />
 # 🎓 Decentralized Certificate Verification via Moodle and Blockchain
@@ -14,7 +14,7 @@ This project integrates the Moodle LMS platform with blockchain technology to is
 This system enables:
 - Automatic issuance of certificates upon course completion in Moodle.
 - Creation of verifiable SoulBound Tokens stored on the blockchain.
-- Decentralized, privacy-preserving certificate verification via mobile/web apps.
+- Decentralized, privacy-preserving certificate verification via mobile app.
 
 ---
 
@@ -23,7 +23,7 @@ This system enables:
 ### 1. **Moodle Platform**
 - LMS where students complete courses.
 - On course completion:
-  - Certificate is generated (name, email, certificate ID).
+  - Certificate/badge is generated (name, email, certificate ID, etc..).
   - Data is sent to the **Blockchain Plugin Server** via REST API.
 
 ### 2. **Blockchain Plugin Server**
@@ -42,9 +42,9 @@ This system enables:
 ### 4. **Verifier Application**
 - Used by employers/organizations for certificate validation.
 - Supports:
-  - Mobile/Web interface.
+  - Mobile interface.
   - QR scanning.
-  - Direct blockchain verification (no server dependency).
+  - Direct blockchain verification.
 
 ---
 
@@ -57,7 +57,7 @@ This system enables:
    - Issues an SBT representing the certificate.
    - Constructs a verifiable certificate hash.
 4. Data is stored on the blockchain via smart contracts.
-5. Third-party verifiers use a **mobile/web app** to validate certificates.
+5. Third-party verifiers use a **mobile app** to validate certificates.
 
 ---
 
@@ -78,7 +78,7 @@ This system enables:
   - Link certificates to blockchain identities.
 - **APIs**:
   - `Issue API`: Triggered by Moodle.
-  - `Verification API`: Used by mobile/web apps.
+  - `Verification API`: Used by mobile app.
   - `Verifiable Hash API`: Returns verifiable DID hash.
 
 ### 📱 Implementation Point #3: Verifier Application
@@ -105,8 +105,8 @@ This system enables:
 
 Hash = SHA-256(SHA-256(CertificateID + CertificateOwnerDID))
 
-Deploy a private Blockchain network
-# Private Quorum Network with QBFT Consensus
+### 🔗Deploy a private Blockchain network
+## Private Quorum Network with QBFT Consensus
 
 This project sets up a private [GoQuorum](https://consensys.net/quorum/) blockchain network using the QBFT consensus algorithm. It is designed for fast development and testing of permissioned blockchain applications.
 
@@ -186,20 +186,20 @@ static-nodes.json defines peer-to-peer connections between 3 nodes:
   "enode://<node2>@Χ.Χ.Χ.Χ:30301",
   "enode://<node3>@Χ.Χ.Χ.Χ:30302"
 ]
-
-Install GoQuorum.
+```
+# Install GoQuorum.
 
 Copy genesis.json and static-nodes.json into your node data directory.
 
 Initialize the chain:
-
+```console
 bash
 Copy
 Edit
 geth --datadir node1 init genesis.json
-
+```
 Start the node:
-
+```console
 bash
 Copy
 Edit
@@ -210,3 +210,4 @@ geth --datadir node1 \
   --http --http.port 8545 --http.api admin,eth,net,web3,quorum \
   --port 30300 \
   --bootnodes "enode://<peer>"
+```
