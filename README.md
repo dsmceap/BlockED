@@ -2,8 +2,9 @@
 This repo hosts the open source code and documentation of the BlockED project and the Blockchain plugin.
 This project focuses on the implementation of a Blockchain plugin used for the verification of certificates/badges produced by a Learning Management System (LMS), in our case Moodle platform. The System architecture below consists of 2 main elements: The Moodle platform in the left side that can interact with third party microcredential tools (e.g MICOO) and the Blockchain plugin in the rigth side that consists of the Blockchain network, the Oracle mechanism and the verifier app. In this Readme file we throughly present its element and provide open-source code for any possible adopters.
 
- 
-Image explanation
+ <img width="1280" height="720" alt="system-architecture" src="https://github.com/user-attachments/assets/ea8499f6-90d6-41b6-b0bc-448afa7f83d7" />
+
+System explanation
 Moodle Platform: is the LMS platform on which students complete courses.
 1.	Structure:
 o	Moodle Course: the course that the student must complete.
