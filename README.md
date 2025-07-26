@@ -209,3 +209,20 @@ geth --datadir node1 \
   --port 30300 \
   --bootnodes "enode://<peer>"
 ```
+
+### 📁 Verifier Android App Folder Structure Overview
+
+The Verifier-App folder acts as a repository for the mobile application which can be used to verify Block.Ed eligible certificates.
+This folder contains all resources related to the mobile application:
+
+- **📱 `app-release.apk`**  
+  The installable Android app for testing.  
+  👉 The app can be downloaded and installed on their Android devices to explore the verification process.
+
+- **🧪 `qr-tests/`**  
+  Contains QR codes for testing the app's behavior in three different use cases.  
+  👉 Useful for demos and validating functionality.
+
+- **💻 `flutter-source/`**  
+  The full Flutter source code of the app.  
+  👉 For partners or developers who want to explore, customize, or contribute to the mobile application.
