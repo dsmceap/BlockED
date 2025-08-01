@@ -226,3 +226,81 @@ This folder contains all resources related to the mobile application:
 - **💻 `flutter-source/`**  
   The full Flutter source code of the app.  
   👉 For partners or developers who want to explore, customize, or contribute to the mobile application.
+
+### Instructions for Blocked Oracle Server
+
+This guide walks you through the process of deploying the `BlockCert.sol` contract and setting it up for use. Follow the steps below carefully:
+
+#### Prerequisites
+Before proceeding, ensure you have the following:
+
+- **Node.js** (Version 18 or higher) installed.
+- A **MetaMask** wallet or similar Ethereum wallet connected to the network you're using.
+- **npm** (Node package manager) installed for managing dependencies.
+
+#### 1. Deploy the Contract
+
+There are two options for deploying the `BlockCert.sol` contract:
+
+##### Option 1: Deploy Your Own Contract
+
+1. Navigate to the `block-oracle-server/contracts` folder where `BlockCert.sol` is located.
+2. Use a deployment tool of your choice (e.g., **Truffle**, **Hardhat**, or **Foundry**) to deploy the contract. Follow the documentation of your selected deployment tool for detailed instructions.
+
+##### Option 2: Use the Pre-Existing Contract
+
+If you prefer using the pre-deployed contract, please **contact us** so we can enable an address of your choice as the issuer.
+
+#### 2. Set the Issuer Address
+
+After deploying the contract, you need to call the `setIssuer` function to enable a specific address as the issuer. This should be done using the **deployer's address** as `msg.sender`. 
+
+- If you used your own contract, call the `setIssuer` function using the deployer's address.
+- If you're using our contract, please contact us to enable the issuer address.
+
+#### 3. Configure the Environment
+
+Create a `.env` file to store sensitive data such as network addresses and the oracle address. Follow the structure in the provided `.env.example` file. Update the following fields:
+
+- **NETWORK_URL**: The URL of the network you are deploying to (e.g., Rinkeby, Mainnet).
+- **ORACLE_ADDRESS**: The address of the oracle for verifying certificates.
+- **CONTRACT_ADDRESS**: The address of the deployed `BlockCert` contract.
+
+Example `.env` file:
+
+```bash
+NETWORK_URL=https://your-network-url
+ORACLE_ADDRESS=0xYourOracleAddress
+CONTRACT_ADDRESS=0xYourContractAddress
+```
+
+#### 4. Install Dependencies
+
+Navigate to the project folder and install the necessary dependencies:
+
+```bash
+npm install
+```
+
+This will install all required packages, as specified in `package.json`.
+
+#### 5. Run the Project
+
+Finally, start the project using **Nodemon**:
+
+```bash
+nodemon app.js
+```
+
+This will start the application and keep it running, automatically restarting it when changes are made.
+
+---
+
+##### Troubleshooting
+
+- **If you encounter issues**: Ensure that your Node.js version is greater than 18 and that all required dependencies are installed.
+- **Deployment failures**: Double-check the contract deployment logs for errors and verify the addresses in your `.env` file.
+
+---
+
+By following these steps, your `BlockCert` contract should be successfully deployed and configured. Feel free to reach out if you have any questions!
