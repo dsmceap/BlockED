@@ -1,0 +1,21 @@
+--- a/mod/customcert/element/qrcode/classes/element.php
++++ b/mod/customcert/element/qrcode/classes/element.php
+@@ -160,8 +160,14 @@ class element extends \mod_customcert\element {
+             if ((!$verifyallcertificatessitesetting || !$verifycertificateactivitysettings)
+                     && !$canverifyallcertificates) {
+                 $urlparams['contextid'] = $issue->contextid;
+             }
+ 
+-            $qrcodeurl = new \moodle_url('/mod/customcert/verify_certificate.php', $urlparams);
+-            $qrcodeurl = $qrcodeurl->out(false);
++            // Check if blockchain verification is available
++            if (function_exists('local_blockchain_verification_get_certificate_url')) {
++                $qrcodeurl = local_blockchain_verification_get_certificate_url($user->id, $issue->course, $issue->code, $urlparams);
++            } else {
++                // Use standard verification fallback
++                $qrcodeurl = new \moodle_url('/mod/customcert/verify_certificate.php', $urlparams);
++                $qrcodeurl = $qrcodeurl->out(false);
++            }
+         }
+ 
+         $barcode = new \TCPDF2DBarcode($qrcodeurl, self::BARCODETYPE);

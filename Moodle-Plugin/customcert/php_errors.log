@@ -1,0 +1,27 @@
+[26-Sep-2025 14:54:22 Europe/Rome] PHP Parse error:  syntax error, unexpected variable "$event" in C:\Users\ws_35\sites\platform.blocked-project.eu\mod\customcert\view.php on line 127
+[26-Sep-2025 16:42:27 Europe/London] Default exception handler: Exception - local_blockchain_verification\observer::course_module_viewed(): Argument #1 ($event) must be of type mod_customcert\event\issue_created, mod_customcert\event\course_module_viewed given Debug: 
+Error code: generalexceptionmessage
+* line 109 of \local\blockchain_verification\classes\observer.php: TypeError thrown
+* line ? of unknownfile: call to local_blockchain_verification\observer::course_module_viewed()
+* line 155 of \lib\classes\event\manager.php: call to call_user_func()
+* line 75 of \lib\classes\event\manager.php: call to core\event\manager::process_buffers()
+* line 795 of \lib\classes\event\base.php: call to core\event\manager::dispatch()
+* line 132 of \mod\customcert\view.php: call to core\event\base->trigger()
+
+[26-Sep-2025 16:42:41 Europe/London] Default exception handler: Exception - TCPDF ERROR: Some data has already been output, can't send PDF file Debug: 
+Error code: generalexceptionmessage
+* line 3006 of \lib\tcpdf\tcpdf.php: Exception thrown
+* line 7714 of \lib\tcpdf\tcpdf.php: call to TCPDF->Error()
+* line 190 of \lib\pdflib.php: call to TCPDF->Output()
+* line 369 of \mod\customcert\classes\template.php: call to pdf->Output()
+* line 223 of \mod\customcert\view.php: call to mod_customcert\template->generate_pdf()
+
+[26-Sep-2025 16:42:49 Europe/London] Default exception handler: Exception - TCPDF ERROR: Some data has already been output, can't send PDF file Debug: 
+Error code: generalexceptionmessage
+* line 3006 of \lib\tcpdf\tcpdf.php: Exception thrown
+* line 7714 of \lib\tcpdf\tcpdf.php: call to TCPDF->Error()
+* line 190 of \lib\pdflib.php: call to TCPDF->Output()
+* line 369 of \mod\customcert\classes\template.php: call to pdf->Output()
+* line 223 of \mod\customcert\view.php: call to mod_customcert\template->generate_pdf()
+
+[07-Oct-2025 15:01:52 Europe/London] BLOCKCHAIN PLUGIN RESPONSE --> Bad Request: Invalid client header
