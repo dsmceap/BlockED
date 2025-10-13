@@ -24,9 +24,6 @@
 
 namespace customcertelement_qrcode;
 
-use local_blockchain_verification\blockchain_helper as Blockchain_Helper;
-use \local_blockchain_verification\db_helper as Blockchain_DB_Helper;
-
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/tcpdf/tcpdf_barcodes_2d.php');
@@ -176,17 +173,8 @@ class element extends \mod_customcert\element {
                 $urlparams['contextid'] = $issue->contextid;
             }
 
-            // $qrcodeurl = new \moodle_url('/mod/customcert/verify_certificate.php', $urlparams);
-            $qrcodeurl = Blockchain_DB_Helper::get_certificate_hash($user->id, $issue->course);
-
-            $B_Helper = new Blockchain_Helper();
-            $verified = $B_Helper->verify_hash($qrcodeurl); // This function checks the validity of the hash string before sending any requests to the Blockchain Plugin Server
-                
-            if(!$verified) {
-                // If the hash is not verified, fallback to the standard Certificate verification URL
-                $qrcodeurl = new \moodle_url('/mod/customcert/verify_certificate.php', $urlparams);
-                $qrcodeurl = $qrcodeurl->out(false);
-            }
+            $qrcodeurl = new \moodle_url('/mod/customcert/verify_certificate.php', $urlparams);
+            $qrcodeurl = $qrcodeurl->out(false);
         }
 
         $barcode = new \TCPDF2DBarcode($qrcodeurl, self::BARCODETYPE);
