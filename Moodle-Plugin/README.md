@@ -9,7 +9,7 @@ This plugin adds blockchain verification capabilities to Moodle certificates. It
 The modifications are minimal and only affect the QR code generation to integrate with blockchain verification. This allows users to easily test and evaluate the blockchain features without complex setup procedures.
 
 ### CustomCert Modifications Made
-The following file was modified for project demonstration:
+The following key file was modified for project demonstration:
 - **File**: `mod/customcert/element/qrcode/classes/element.php`
 - **Purpose**: Enable blockchain verification for certificate QR codes
 - **Changes**: Added a function call to check for blockchain verification before falling back to standard verification
@@ -30,9 +30,11 @@ The CustomCert plugin doesn't provide hooks for modifying QR code URLs, so a sma
 ### Integration Process
 
 #### Option A: Apply Patch File
+1. Navigate to your Moodle root directory
+2. Apply the provided patch file using the `patch` command, if available:
 ```bash
 cd /path/to/moodle
-patch -p1 < local/blockchain_verification/patches/customcert_integration.patch
+patch -p0 -i local/blockchain_verification/patches/customcert_integration.patch
 ```
 
 #### Option B: Manual Integration

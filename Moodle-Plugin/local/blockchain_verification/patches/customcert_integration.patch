@@ -1,18 +1,27 @@
---- a/mod/customcert/element/qrcode/classes/element.php
-+++ b/mod/customcert/element/qrcode/classes/element.php
-@@ -160,8 +160,14 @@ class element extends \mod_customcert\element {
-             if ((!$verifyallcertificatessitesetting || !$verifycertificateactivitysettings)
-                     && !$canverifyallcertificates) {
+--- mod/customcert/element/qrcode/classes/element.php
++++ mod/customcert/element/qrcode/classes/element.php
+@@ -173,8 +173,25 @@ class element extends \mod_customcert\element {
                  $urlparams['contextid'] = $issue->contextid;
              }
  
 -            $qrcodeurl = new \moodle_url('/mod/customcert/verify_certificate.php', $urlparams);
 -            $qrcodeurl = $qrcodeurl->out(false);
-+            // Check if blockchain verification is available
-+            if (function_exists('local_blockchain_verification_get_certificate_url')) {
-+                $qrcodeurl = local_blockchain_verification_get_certificate_url($user->id, $issue->course, $issue->code, $urlparams);
++            // Blockchain verification integration
++            if (class_exists('local_blockchain_verification\db_helper') && 
++                class_exists('local_blockchain_verification\blockchain_helper')) {
++                
++                $qrcodeurl = \local_blockchain_verification\db_helper::get_certificate_hash($user->id, $issue->course);
++                
++                $B_Helper = new \local_blockchain_verification\blockchain_helper();
++                $verified = $B_Helper->verify_hash($qrcodeurl);
++                    
++                if(!$verified) {
++                    // If the hash is not verified, fallback to the standard Certificate verification URL
++                    $qrcodeurl = new \moodle_url('/mod/customcert/verify_certificate.php', $urlparams);
++                    $qrcodeurl = $qrcodeurl->out(false);
++                }
 +            } else {
-+                // Use standard verification fallback
++                // Standard verification fallback (original behavior)
 +                $qrcodeurl = new \moodle_url('/mod/customcert/verify_certificate.php', $urlparams);
 +                $qrcodeurl = $qrcodeurl->out(false);
 +            }
